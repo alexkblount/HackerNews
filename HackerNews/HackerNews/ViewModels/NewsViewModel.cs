@@ -9,8 +9,8 @@ using System.Windows.Input;
 using AsyncAwaitBestPractices;
 using AsyncAwaitBestPractices.MVVM;
 using HackerNews.Shared;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using Microsoft.Maui.Essentials;
+using Microsoft.Maui.Controls;
 
 namespace HackerNews
 {

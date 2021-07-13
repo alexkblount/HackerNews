@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<WarningsAsErrors>False</WarningsAsErrors>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<GenerateErrorForMissingTargetingPacks>false</GenerateErrorForMissingTargetingPacks>
 	</PropertyGroup>

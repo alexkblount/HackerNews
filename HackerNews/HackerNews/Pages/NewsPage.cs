@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Linq;
 using HackerNews.Shared;
-using Xamarin.CommunityToolkit.Markup;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace HackerNews
 {
@@ -13,23 +14,27 @@ namespace HackerNews
         {
             ViewModel.PullToRefreshFailed += HandlePullToRefreshFailed;
 
-            Content = new RefreshView
-            {
-                RefreshColor = Color.Black,
-
-                Content = new CollectionView
+            var collectionView = new CollectionView
                 {
                     BackgroundColor = Color.FromHex("F6F6EF"),
                     SelectionMode = SelectionMode.Single,
-                    ItemTemplate = new StoryDataTemplate(),
+                    ItemTemplate = new StoryDataTemplate()
 
-                }.Assign(out CollectionView collectionView)
-                 .Bind(CollectionView.ItemsSourceProperty, nameof(NewsViewModel.TopStoryCollection))
+                };
 
-            }.Bind(RefreshView.IsRefreshingProperty, nameof(NewsViewModel.IsListRefreshing))
-             .Bind(RefreshView.CommandProperty, nameof(NewsViewModel.RefreshCommand));
-
+            collectionView.SetBinding(CollectionView.ItemsSourceProperty, nameof(NewsViewModel.TopStoryCollection));
             collectionView.SelectionChanged += HandleSelectionChanged;
+
+            var refreshView = new RefreshView
+            {
+                RefreshColor = Colors.Black,
+                Content = collectionView
+            };
+
+            refreshView.SetBinding(RefreshView.IsRefreshingProperty, nameof(NewsViewModel.IsListRefreshing));
+            refreshView.SetBinding(RefreshView.CommandProperty, nameof(NewsViewModel.RefreshCommand));
+
+            Content = refreshView;
         }
 
         protected override void OnAppearing()

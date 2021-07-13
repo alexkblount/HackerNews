@@ -1,13 +1,22 @@
-﻿using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
+using System;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace HackerNews
 {
-    public class App : Xamarin.Forms.Application
+    public class App : Microsoft.Maui.Controls.Application
     {
         public App()
         {
-            var navigationPage = new Xamarin.Forms.NavigationPage(new NewsPage())
+
+        }
+
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            var navigationPage = new Microsoft.Maui.Controls.NavigationPage(new NewsPage())
             {
                 BarBackgroundColor = ColorConstants.NavigationBarBackgroundColor,
                 BarTextColor = ColorConstants.NavigationBarTextColor
@@ -15,7 +24,7 @@ namespace HackerNews
 
             navigationPage.On<iOS>().SetPrefersLargeTitles(true);
 
-            MainPage = navigationPage;
+        	return new Microsoft.Maui.Controls.Window(navigationPage);
         }
     }
 }

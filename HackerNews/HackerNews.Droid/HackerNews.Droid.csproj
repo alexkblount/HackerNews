@@ -1,3 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <UseMaui>true</UseMaui>
+    <TargetFramework>net6.0-android</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+   <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.0" />
+        <PackageReference Include="Polly" Version="7.2.2" />
+        <PackageReference Include="Refit" Version="6.0.38" />
+        <PackageReference Include="Azure.AI.TextAnalytics" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HackerNews\HackerNews.csproj">
+            <Project>{2BF975FB-67A3-4B18-B616-83726C493EFB}</Project>
+            <Name>HackerNews</Name>
+        </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+		<UseInterpreter Condition="$(TargetFramework.Contains('-android'))">True</UseInterpreter>
+	</PropertyGroup>
+  </Project>
+
+<!-- 
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
@@ -98,4 +124,4 @@
         </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-</Project>
+</Project> -->

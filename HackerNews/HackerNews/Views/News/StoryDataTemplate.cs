@@ -1,7 +1,6 @@
 ﻿using HackerNews.Shared;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
-using static Xamarin.CommunityToolkit.Markup.GridRowsColumns;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace HackerNews
 {
@@ -14,23 +13,32 @@ namespace HackerNews
 
         public static GridLength AbsoluteGridLength(double value) => new GridLength(value, GridUnitType.Absolute);
 
-        static Grid CreateGrid() => new Grid
+        static Grid CreateGrid()
         {
-            RowSpacing = 1,
+            var title = new TitleLabel();
+            title.SetBinding(Label.TextProperty, nameof(StoryModel.Title));
+            Grid.SetRow(title, 0);
 
-            RowDefinitions = Rows.Define(
-                (Row.Title, AbsoluteGridLength(20)),
-                (Row.Description, AbsoluteGridLength(20)),
-                (Row.BottomPadding, AbsoluteGridLength(1))),
+            var description = new DescriptionLabel();
+            description.SetBinding(Label.TextProperty, nameof(StoryModel.Description));
+            Grid.SetRow(description, 1);
 
-            Children =
+            var definitions = new RowDefinitionCollection();
+            definitions.Add(new RowDefinition { Height = new GridLength(20, GridUnitType.Absolute)});
+            definitions.Add(new RowDefinition { Height = new GridLength(20, GridUnitType.Absolute)});
+            definitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Absolute)});
+            var grid = new Grid {
+                RowSpacing = 1,
+                Children =
             {
-                new TitleLabel().Row(Row.Title)
-                    .Bind(Label.TextProperty, nameof(StoryModel.Title)),
-                new DescriptionLabel().Row(Row.Description)
-                    .Bind(Label.TextProperty, nameof(StoryModel.Description))
-            }
-        };
+                title,
+                description
+            },
+            RowDefinitions = definitions
+            };
+
+            return grid;
+        }
 
         enum Row { Title, Description, BottomPadding }
 
